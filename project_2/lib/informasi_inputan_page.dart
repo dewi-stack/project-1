@@ -1,3 +1,4 @@
+// Pastikan import tidak berubah
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
@@ -53,13 +54,14 @@ class _InformasiInputanPageState extends State<InformasiInputanPage> {
             final hargaJual = double.tryParse(item['harga_jual'].toString()) ?? 0.0;
             final modal = double.tryParse(item['modal'].toString()) ?? 0.0;
             final profit = hargaJual - modal;
+            final createdAt = DateTime.tryParse(item['created_at'] ?? '') ?? DateTime.now();
 
             return Inputan(
               nama: item['nama'] ?? '-',
               hargaJual: hargaJual,
               modal: modal,
               totalProfit: profit,
-              tanggal: item['created_at'] ?? '-',
+              tanggal: createdAt,
             );
           }).toList();
 
@@ -80,7 +82,7 @@ class _InformasiInputanPageState extends State<InformasiInputanPage> {
     }
   }
 
-  void filterByDateRange(DateTimeRange? range) {
+ void filterByDateRange(DateTimeRange? range) {
     if (range == null) {
       setState(() {
         _filteredList = _inputanList;
@@ -89,16 +91,16 @@ class _InformasiInputanPageState extends State<InformasiInputanPage> {
       return;
     }
 
+    final start = DateTime(range.start.year, range.start.month, range.start.day);
+    final end = DateTime(range.end.year, range.end.month, range.end.day, 23, 59, 59);
+
     setState(() {
       _filteredList = _inputanList.where((inputan) {
-        try {
-          final tanggal = DateTime.parse(inputan.tanggal);
-          return tanggal.isAfter(range.start.subtract(const Duration(days: 1))) &&
-              tanggal.isBefore(range.end.add(const Duration(days: 1)));
-        } catch (_) {
-          return false;
-        }
+        return inputan.tanggal.isAtSameMomentAs(start) ||
+              inputan.tanggal.isAtSameMomentAs(end) ||
+              (inputan.tanggal.isAfter(start) && inputan.tanggal.isBefore(end));
       }).toList();
+
       _dataSource = InputanDataSource(inputanList: _filteredList);
     });
   }
@@ -151,7 +153,6 @@ class _InformasiInputanPageState extends State<InformasiInputanPage> {
     final bytes = workbook.saveAsStream();
     workbook.dispose();
 
-    // ✅ Tambahkan nama file
     final String namaFile = 'laporan_informasi_inputan_karyawan.xlsx';
 
     if (kIsWeb) {
@@ -224,22 +225,22 @@ class _InformasiInputanPageState extends State<InformasiInputanPage> {
     );
   }
 
- @override
-Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: const Text('Informasi Inputan Data'),
-      centerTitle: true,
-      backgroundColor: Colors.indigo,
-      foregroundColor: Colors.white,
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.logout),
-          tooltip: 'Logout',
-          onPressed: logout,
-        ),
-      ],
-    ),
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Informasi Inputan Data'),
+        centerTitle: true,
+        backgroundColor: Colors.indigo,
+        foregroundColor: Colors.white,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            tooltip: 'Logout',
+            onPressed: logout,
+          ),
+        ],
+      ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : Padding(
@@ -263,8 +264,6 @@ Widget build(BuildContext context) {
                         ),
                       ),
                     ),
-
-                    // Filter dan export
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Wrap(
@@ -276,7 +275,7 @@ Widget build(BuildContext context) {
                             label: Text(
                               _selectedDateRange == null
                                   ? 'Pilih Rentang Tanggal'
-                                  : '${DateFormat('dd/MM/yy').format(_selectedDateRange!.start)} - ${DateFormat('dd/MM/yy').format(_selectedDateRange!.end)}',
+                                  : '${DateFormat('dd-MM-yy').format(_selectedDateRange!.start)} - ${DateFormat('dd-MM-yy').format(_selectedDateRange!.end)}',
                             ),
                             onPressed: () async {
                               final picked = await showDateRangePicker(
@@ -334,21 +333,17 @@ Widget build(BuildContext context) {
                         ],
                       ),
                     ),
-
                     const Divider(height: 10, thickness: 1),
-
-                    // Tabel Data
                     Expanded(
                       child: SfDataGridTheme(
                         data: SfDataGridThemeData(
-                          headerColor: Colors.indigo.shade600, // Header biru
+                          headerColor: Colors.indigo.shade600,
                           gridLineColor: Colors.grey.shade300,
                         ),
                         child: SfDataGrid(
                           source: _dataSource,
                           allowSorting: true,
                           columnWidthMode: ColumnWidthMode.fill,
-                          rowsPerPage: _rowsPerPage,
                           columns: [
                             GridColumn(columnName: 'nama', label: _buildHeader('Nama', Colors.white)),
                             GridColumn(columnName: 'hargaJual', label: _buildHeader('Harga Jual', Colors.white)),
@@ -359,8 +354,6 @@ Widget build(BuildContext context) {
                         ),
                       ),
                     ),
-
-                    // Pagination
                     Container(
                       padding: const EdgeInsets.only(bottom: 16),
                       alignment: Alignment.center,
@@ -396,7 +389,7 @@ class Inputan {
   final double hargaJual;
   final double modal;
   final double totalProfit;
-  final String tanggal;
+  final DateTime tanggal;
 
   Inputan({
     required this.nama,
@@ -417,7 +410,7 @@ class InputanDataSource extends DataGridSource {
         DataGridCell<String>(columnName: 'hargaJual', value: formatRupiah(inputan.hargaJual)),
         DataGridCell<String>(columnName: 'modal', value: formatRupiah(inputan.modal)),
         DataGridCell<String>(columnName: 'totalProfit', value: formatRupiah(inputan.totalProfit)),
-        DataGridCell<String>(columnName: 'tanggal', value: formatTanggal(inputan.tanggal)),
+        DataGridCell<DateTime>(columnName: 'tanggal', value: inputan.tanggal),
       ]);
     }).toList();
   }
@@ -432,7 +425,11 @@ class InputanDataSource extends DataGridSource {
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           alignment: Alignment.centerLeft,
-          child: Text(cell.value.toString()),
+          child: Text(
+            cell.columnName == 'tanggal'
+                ? formatTanggal(cell.value)
+                : cell.value.toString(),
+          ),
         );
       }).toList(),
     );
@@ -443,12 +440,7 @@ class InputanDataSource extends DataGridSource {
     return formatter.format(number);
   }
 
-  static String formatTanggal(String date) {
-    try {
-      final dateTime = DateTime.parse(date);
-      return DateFormat('dd/MM/yy').format(dateTime);
-    } catch (_) {
-      return '-';
-    }
+  static String formatTanggal(DateTime date) {
+    return DateFormat('dd-MM-yy').format(date); // <- DIUBAH SESUAI PERMINTAAN
   }
 }
