@@ -1,6 +1,6 @@
 <!-- Banner -->
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:4B79A1,100:283E51&height=160&section=header&text=Aplikasi%20Karyawan%20📱&fontSize=30&fontColor=fff&animation=fadeIn&fontAlignY=35"/>
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:4B79A1,100:283E51&height=160&section=header&text=Employee%20Mobile%20App%20📱&fontSize=30&fontColor=fff&animation=fadeIn&fontAlignY=35"/>
 </p>
 
 <p align="center">
@@ -13,50 +13,60 @@
 ---
 
 ## 📋 Overview
-**Aplikasi Karyawan** adalah aplikasi mobile berbasis **Flutter** yang membantu karyawan melakukan **input dan pengelolaan data order** secara cepat, terstruktur, dan efisien.
+**Employee Mobile App** is a Flutter-based mobile application designed to help employees **submit and manage order data efficiently**.
 
-Aplikasi ini terintegrasi dengan **REST API Laravel** dan dilengkapi fitur **Export ke Excel (.xlsx)** sehingga data dapat dengan mudah direkap, dianalisis, atau dikirim ke manajemen.
+The application is integrated with a **Laravel REST API** and includes an **Excel (.xlsx) export feature**, allowing order data to be easily summarized, shared, or processed by management.
 
 ---
 
-## 🚀 Fitur Utama
-- 📝 Input data order (produk, jumlah, pelanggan)
-- 📦 Menampilkan daftar order secara real-time
-- 📤 Export data order ke Excel (.xlsx)
-- 🔐 Login & autentikasi pengguna
-- 🔄 Integrasi REST API Laravel
-- 📱 UI responsif, ringan, dan user-friendly
+## 🚀 Key Features
+- 📝 Order input (product, quantity, customer)
+- 📦 View latest order list
+- 📤 Export order data to Excel (.xlsx)
+- 🔐 User authentication & login
+- 🔄 Integrated with Laravel REST API
+- 📱 Responsive, lightweight, and user-friendly UI
 
 ---
 
 ## 🧠 Tech Stack
-| Layer | Teknologi |
+| Layer | Technology |
 |------|-----------|
 | **Frontend** | Flutter (Dart) |
 | **Backend** | Laravel (REST API) |
 | **Database** | MySQL / MariaDB |
-| **Authentication** | Token-based Auth |
+| **Authentication** | Token-based Authentication |
 | **Flutter Packages** | `http`, `excel`, `shared_preferences` |
 
 ---
 
-## 🎯 Tujuan Pengembangan
-- Mempercepat proses input data karyawan
-- Mengurangi kesalahan pencatatan manual
-- Menyediakan data siap rekap & analisis
-- Mendukung sistem kerja yang lebih digital & efisien
+## 🎯 Project Goals
+- Speed up employee data input process
+- Reduce manual data entry errors
+- Provide ready-to-use data reports
+- Support digital and efficient business workflows
 
 ---
 
-## 📌 Status
-Project ini **aktif dikembangkan** dan dapat disesuaikan untuk kebutuhan:
-- Aplikasi internal perusahaan  
-- Sistem kasir / order management  
-- Inventory & warehouse system  
+## 📌 Project Status
+This project is **actively maintained** and can be customized for:
+- Internal company applications
+- Order management systems
+- POS (Point of Sale) systems
+- Inventory & warehouse solutions
 
 ---
 
-## 📫 Kontak
-Jika tertarik menggunakan atau mengembangkan project ini lebih lanjut:
+## 🧩 Possible Enhancements
+- Role-based access control
+- Real-time order updates
+- Dashboard & data visualization
+- Notification system
+- Advanced reporting features
+
+---
+
+## 📫 Contact
+For collaboration, customization, or further development:
 
 🔗 LinkedIn: https://www.linkedin.com/in/dewi-laylaturrohmah-5b2b67208
