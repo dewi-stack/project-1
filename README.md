@@ -4,36 +4,59 @@
 </p>
 
 <p align="center">
-  <a href="#"><img src="https://img.shields.io/badge/Flutter-02569B?logo=flutter&logoColor=white" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/Laravel-FF2D20?logo=laravel&logoColor=white" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/MySQL-00758F?logo=mysql&logoColor=white" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/Status-Active-success" /></a>
+  <img src="https://img.shields.io/badge/Flutter-02569B?logo=flutter&logoColor=white" />
+  <img src="https://img.shields.io/badge/Laravel-FF2D20?logo=laravel&logoColor=white" />
+  <img src="https://img.shields.io/badge/MySQL-00758F?logo=mysql&logoColor=white" />
+  <img src="https://img.shields.io/badge/Project-Active-success" />
 </p>
 
 ---
 
-## 📋 Deskripsi Singkat
-Aplikasi mobile berbasis **Flutter** yang dirancang untuk mempermudah karyawan melakukan **input order** secara cepat dan efisien.  
-Tersedia fitur **Export ke Excel (.xlsx)** agar data order dapat direkap atau dikirimkan langsung ke pihak manajemen.
+## 📋 Overview
+**Aplikasi Karyawan** adalah aplikasi mobile berbasis **Flutter** yang membantu karyawan melakukan **input dan pengelolaan data order** secara cepat, terstruktur, dan efisien.
+
+Aplikasi ini terintegrasi dengan **REST API Laravel** dan dilengkapi fitur **Export ke Excel (.xlsx)** sehingga data dapat dengan mudah direkap, dianalisis, atau dikirim ke manajemen.
 
 ---
 
 ## 🚀 Fitur Utama
-✅ Input data order (produk, jumlah, pelanggan)  
-📦 Menampilkan daftar order terkini  
-📤 Export data ke Excel  
-🔐 Login & autentikasi pengguna  
-🔄 Terhubung dengan API Laravel  
-🧩 UI responsif dan ringan
+- 📝 Input data order (produk, jumlah, pelanggan)
+- 📦 Menampilkan daftar order secara real-time
+- 📤 Export data order ke Excel (.xlsx)
+- 🔐 Login & autentikasi pengguna
+- 🔄 Integrasi REST API Laravel
+- 📱 UI responsif, ringan, dan user-friendly
 
 ---
 
-## 🧠 Teknologi yang Digunakan
+## 🧠 Tech Stack
 | Layer | Teknologi |
-|-------|------------|
+|------|-----------|
 | **Frontend** | Flutter (Dart) |
-| **Backend** | Laravel (PHP) |
+| **Backend** | Laravel (REST API) |
 | **Database** | MySQL / MariaDB |
-| **Package Flutter** | `http`, `excel`, `shared_preferences` |
+| **Authentication** | Token-based Auth |
+| **Flutter Packages** | `http`, `excel`, `shared_preferences` |
 
 ---
+
+## 🎯 Tujuan Pengembangan
+- Mempercepat proses input data karyawan
+- Mengurangi kesalahan pencatatan manual
+- Menyediakan data siap rekap & analisis
+- Mendukung sistem kerja yang lebih digital & efisien
+
+---
+
+## 📌 Status
+Project ini **aktif dikembangkan** dan dapat disesuaikan untuk kebutuhan:
+- Aplikasi internal perusahaan  
+- Sistem kasir / order management  
+- Inventory & warehouse system  
+
+---
+
+## 📫 Kontak
+Jika tertarik menggunakan atau mengembangkan project ini lebih lanjut:
+
+🔗 LinkedIn: https://www.linkedin.com/in/dewi-laylaturrohmah-5b2b67208
